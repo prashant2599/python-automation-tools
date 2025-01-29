@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    environment {
+        ENV_NAME = "${ENV_NAME}" // Uses the global environment variable
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    echo "Checking out code in environment: ${ENV_NAME}"
+                }
+                
+            }
+        }
+    }
+}
