@@ -2,16 +2,25 @@ pipeline {
     agent any
 
     environment {
-        ENV_NAME = "${ENV_NAME}" // Uses the global environment variable
+        ENV_NAME = "${ENV_NAME}" // Uses Jenkins global env variable
     }
 
     stages {
-        stage('Checkout') {
+        stage('Check Branch') {
+            when {
+                expression { env.BRANCH_NAME == 'main' }
+            }
             steps {
                 script {
-                    echo "Checking out code in environment: ${ENV_NAME}"
+                    echo "Branch Name: ${env.BRANCH_NAME}"
+                    echo "Running pipeline for main branch!"
                 }
-                
+            }
+        }
+        
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
     }
